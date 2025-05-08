@@ -2,6 +2,7 @@ import express from "express"
 import dotenv from "dotenv"
 import DB from "./ConnectDB/DB.js"
 import createRecruiterRouter from "./Router/Recruiter/createRecruiter.js"
+import getRecruiterRouter from "./Router/Recruiter/getRecruiter.js"
 import cors from "cors"
 dotenv.config({config: "./Config/.env"});
 
@@ -18,6 +19,7 @@ app.use(cors());
 
 //Endpoints
 app.use("/create-recruiter", createRecruiterRouter);
+app.use("/get-recruiter", getRecruiterRouter);
 /////////////////////////////////////////////
 
 
