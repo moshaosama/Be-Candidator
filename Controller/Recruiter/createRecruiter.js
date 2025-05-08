@@ -8,11 +8,11 @@ export const createRecruiter = async (req, res) =>{
             return res.status(400).json({message: "All fields are required"});
         }
 
-        const Query = `INSERT INTO recruiter (FirstName, LastName, Email, Password) VALUES (?, ?, ?, ?)`
+        const Query = `INSERT INTO recruiter (FirstName, LastName, Email, Password, Role) VALUES (?, ?, ?, ?, ?)`
 
         const hashPassword = await bcrypt.hash(Password, 12)
 
-        const Value = [FirstName, LastName, Email, hashPassword];
+        const Value = [FirstName, LastName, Email, hashPassword, "recruiter"];
         const [result] = await DB.promise().query(Query, Value);
 
         if(result.affectedRows === 0){
