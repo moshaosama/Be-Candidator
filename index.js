@@ -3,6 +3,10 @@ import dotenv from "dotenv";
 import DB from "./ConnectDB/DB.js";
 import createRecruiterRouter from "./Router/Recruiter/createRecruiter.js";
 import getRecruiterRouter from "./Router/Recruiter/getRecruiter.js";
+import {
+  deleteRecruiterByIdRouter,
+  deleteAllRecruiterRouter,
+} from "./Router/Recruiter/deleteRecruiter.js";
 import cors from "cors";
 dotenv.config({ config: ".env" });
 
@@ -27,6 +31,8 @@ app.use(cors());
 //Endpoints
 app.use("/create-recruiter", createRecruiterRouter);
 app.use("/get-recruiter", getRecruiterRouter);
+app.use("/delete-all-recruiter", deleteAllRecruiterRouter);
+app.use("/delete-recruiter-by-id", deleteRecruiterByIdRouter);
 /////////////////////////////////////////////
 
 app.listen(Port, () => {
