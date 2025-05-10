@@ -3,11 +3,11 @@ import dotenv from "dotenv";
 import DB from "./ConnectDB/DB.js";
 import createRecruiterRouter from "./Router/Recruiter/createRecruiter.js";
 import getRecruiterRouter from "./Router/Recruiter/getRecruiter.js";
-import {
-  deleteRecruiterByIdRouter,
-  deleteAllRecruiterRouter,
-} from "./Router/Recruiter/deleteRecruiter.js";
 import cors from "cors";
+import {
+  deleteAllRecruiterRouter,
+  deleteRecruiterByIdRouter,
+} from "./Router/Recruiter/deleteRecruiter.js";
 dotenv.config({ config: ".env" });
 
 const app = express();
