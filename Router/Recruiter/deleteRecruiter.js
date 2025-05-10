@@ -2,7 +2,7 @@ import express from "express";
 import {
   deleteAllRecruiter,
   deleteRecruiterById,
-} from "../../Controller/Recruiter/DeleteRecruiter";
+} from "../../Controller/Recruiter/deleteRecruiter.js";
 
 const deleteAllRecruiterRouter = express.Router();
 const deleteRecruiterByIdRouter = express.Router();
