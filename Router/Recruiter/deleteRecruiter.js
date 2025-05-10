@@ -4,10 +4,8 @@ import {
   deleteAllRecruiter,
 } from "../../Controller/Recruiter/DeleteRecruiter.js";
 
-const deleteAllRecruiterRouter = express.Router();
-const deleteRecruiterByIdRouter = express.Router();
+export const deleteAllRecruiterRouter = express.Router();
+export const deleteRecruiterByIdRouter = express.Router();
 
 deleteAllRecruiterRouter.route("/").delete(deleteAllRecruiter);
 deleteRecruiterByIdRouter.route("/:id").delete(deleteRecruiterById);
-
-export { deleteAllRecruiterRouter, deleteRecruiterByIdRouter };
