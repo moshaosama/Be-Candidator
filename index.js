@@ -8,6 +8,7 @@ import {
   deleteAllRecruiterRouter,
   deleteRecruiterByIdRouter,
 } from "./Router/Recruiter/deleteRecruiter.js";
+import createCompanyRouter from "./Router/Comapny/CreateCompany.js";
 dotenv.config({ config: ".env" });
 
 const app = express();
@@ -33,6 +34,7 @@ app.use("/create-recruiter", createRecruiterRouter);
 app.use("/get-recruiter", getRecruiterRouter);
 app.use("/delete-all-recruiter", deleteAllRecruiterRouter);
 app.use("/delete-recruiter-by-id", deleteRecruiterByIdRouter);
+app.use("/create-company", createCompanyRouter);
 /////////////////////////////////////////////
 
 app.listen(Port, () => {
