@@ -13,9 +13,10 @@ export const CreateCompany = async (req, res) => {
     }
 
     const Name = `${FirstName} ${LastName}`;
+    const HashPassword = await bcrypt.hash(Password, 12);
 
     const query = `INSERT INTO Company (Name, Email, Password, Language, Jobs, Tags) VALUES (?, ?, ?, ?, ?, ?);`;
-    const Values = [Name, Email, Password, Language, Jobs, Tags];
+    const Values = [Name, Email, HashPassword, Language, Jobs, Tags];
 
     await DB.promise().query(query, Values);
 
