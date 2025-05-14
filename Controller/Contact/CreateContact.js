@@ -2,16 +2,16 @@ import DB from "../../ConnectDB/DB.js";
 
 export const CreateContact = async (req, res) => {
   try {
-    const { FirstName, LastName, Email, Password, TelePhone, LinkedinUrl } =
+    const { FirstName, LastName, Email, Password, Telephone, LinkedinUrl } =
       req.body;
 
-    const query = `INSERT INTO contact (FirstName, LastName, Email, Password, TelePhone, LinkedinUrl) VALUES (?, ?, ?, ?, ?, ?);`;
+    const query = `INSERT INTO contact (FirstName, LastName, Email, Password, Telephone, LinkedinUrl) VALUES (?, ?, ?, ?, ?, ?);`;
     const Values = [
       FirstName,
       LastName,
       Email,
       Password,
-      TelePhone,
+      Telephone,
       LinkedinUrl,
     ];
 
