@@ -11,6 +11,8 @@ import {
 import createCompanyRouter from "./Router/Comapny/CreateCompany.js";
 import getCompaniesRouter from "./Router/Comapny/GetCompanies.js";
 import GetCompanyByIDRouter from "./Router/Comapny/GetCompanyByID.js";
+import CreateContactRouter from "./Router/Contact/CreateContact.js";
+import GetContactRouter from "./Router/Contact/GetContact.js";
 dotenv.config({ config: ".env" });
 
 const app = express();
@@ -39,6 +41,8 @@ app.use("/delete-recruiter-by-id", deleteRecruiterByIdRouter);
 app.use("/create-company", createCompanyRouter);
 app.use("/get-companies", getCompaniesRouter);
 app.use("/get-company-by-id", GetCompanyByIDRouter);
+app.use("/create-contact", CreateContactRouter);
+app.use("/get-contacts", GetContactRouter);
 /////////////////////////////////////////////
 
 app.listen(Port, () => {
