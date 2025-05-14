@@ -1,4 +1,5 @@
 import DB from "../../ConnectDB/DB.js";
+import bcrypt from "bcryptjs";
 
 export const CreateCompany = async (req, res) => {
   try {
@@ -15,7 +16,7 @@ export const CreateCompany = async (req, res) => {
     const HashPassword = await bcrypt.hash(Password, 12);
 
     // const query = `INSERT INTO Company (Name, Email, Password, Language, Jobs, Tags) VALUES (?, ?, ?, ?, ?, ?);`;
-    const query = `INSERT INTO Company (Name, Email, Password, Language) VALUES (?, ?, ?, ?);`;
+    const query = `INSERT INTO company (Name, Email, Password, Language) VALUES (?, ?, ?, ?);`;
     const Values = [Name, Email, HashPassword, Language];
 
     await DB.promise().query(query, Values);
@@ -25,6 +26,7 @@ export const CreateCompany = async (req, res) => {
       message: "Company created successfully!",
     });
   } catch (err) {
+    console.log(err);
     return res.status(500).json({
       success: false,
       message: "Internal Server Error",
