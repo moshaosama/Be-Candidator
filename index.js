@@ -10,6 +10,7 @@ import {
 } from "./Router/Recruiter/deleteRecruiter.js";
 import createCompanyRouter from "./Router/Comapny/CreateCompany.js";
 import getCompaniesRouter from "./Router/Comapny/GetCompanies.js";
+import GetCompanyByIDRouter from "./Router/Comapny/GetCompanyByID.js";
 dotenv.config({ config: ".env" });
 
 const app = express();
@@ -37,6 +38,7 @@ app.use("/delete-all-recruiter", deleteAllRecruiterRouter);
 app.use("/delete-recruiter-by-id", deleteRecruiterByIdRouter);
 app.use("/create-company", createCompanyRouter);
 app.use("/get-companies", getCompaniesRouter);
+app.use("/get-company-by-id", GetCompanyByIDRouter);
 /////////////////////////////////////////////
 
 app.listen(Port, () => {
