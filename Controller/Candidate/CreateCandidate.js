@@ -3,11 +3,10 @@ import DB from "../../ConnectDB/DB.js";
 
 export const createCandidate = async (req, res) => {
   try {
-  } catch (error) {
-    const { FirstName, Lastname, Email, Password, LinkedInProfile, Resume } =
+    const { FirstName, LastName, Email, Password, LinkedInProfile, Resume } =
       req.body;
 
-    if (!FirstName || !Lastname || !Email || !Password || !LinkedInProfile) {
+    if (!FirstName || !LastName || !Email || !Password || !LinkedInProfile) {
       return res.status(400).json({
         success: false,
         message: "All fields are required",
@@ -16,10 +15,10 @@ export const createCandidate = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(Password, 10);
 
-    const Query = `INSERT INTO candidates (FirstName, Lastname, Email, Password, LinkedInProfile, Resume) VALUES (?, ?, ?, ?, ?, ?);`;
+    const Query = `INSERT INTO candidates (FirstName, LastName, Email, Password, LinkedInProfile, Resume) VALUES (?, ?, ?, ?, ?, ?);`;
     const Values = [
       FirstName,
-      Lastname,
+      LastName,
       Email,
       hashedPassword,
       LinkedInProfile,
@@ -28,12 +27,12 @@ export const createCandidate = async (req, res) => {
 
     await DB.promise().query(Query, Values);
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       message: "Candidate created successfully",
     });
-
-    res.status(500).json({
+  } catch (error) {
+    return res.status(500).json({
       success: false,
       message: "Internal Server Error",
     });
