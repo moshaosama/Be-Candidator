@@ -15,20 +15,21 @@ import CreateContactRouter from "./Router/Contact/CreateContact.js";
 import GetContactRouter from "./Router/Contact/GetContact.js";
 import CreateJobRouter from "./Router/Jobs/CreateJob.js";
 import GetJobsRouter from "./Router/Jobs/GetJobs.js";
+import CandidateRouter from "./Router/Candidate/CandidateRouter.js";
 dotenv.config({ config: ".env" });
 
 const app = express();
 const Port = process.env.PORT;
 
-setInterval(() => {
-  DB.query("SELECT 1", (err) => {
-    if (err) {
-      console.error("MySQL Keep-Alive Failed:", err.message);
-    } else {
-      console.log("MySQL Keep-Alive Ping sent");
-    }
-  });
-}, 5 * 60 * 1000);
+// setInterval(() => {
+//   DB.query("SELECT 1", (err) => {
+//     if (err) {
+//       console.error("MySQL Keep-Alive Failed:", err.message);
+//     } else {
+//       console.log("MySQL Keep-Alive Ping sent");
+//     }
+//   });
+// }, 5 * 60 * 1000);
 
 //Middleware
 app.use(express.json());
@@ -47,6 +48,8 @@ app.use("/create-contact", CreateContactRouter);
 app.use("/get-contacts", GetContactRouter);
 app.use("/create-job", CreateJobRouter);
 app.use("/get-jobs", GetJobsRouter);
+app.use("/create-candidate", CandidateRouter);
+app.use("/get-candidates", CandidateRouter);
 /////////////////////////////////////////////
 
 app.listen(Port, () => {
