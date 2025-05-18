@@ -32,6 +32,8 @@ export const createCandidate = async (req, res) => {
       message: "Candidate created successfully",
     });
   } catch (error) {
+    console.error("CREATE CANDIDATE ERROR:", error);
+
     return res.status(500).json({
       success: false,
       message: "Internal Server Error",
