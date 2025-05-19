@@ -18,6 +18,7 @@ import GetJobsRouter from "./Router/Jobs/GetJobs.js";
 import CandidateRouter from "./Router/Candidate/CandidateRouter.js";
 import GetJobByIdRouter from "./Router/Jobs/GetJJobById.js";
 import StagesRouter from "./Router/Stages/CreateStage.js";
+import CreateCandidateinStageRouter from "./Router/Stages/CreateCandidateinStage.js";
 dotenv.config({ config: ".env" });
 
 const app = express();
@@ -55,6 +56,7 @@ app.use("/create-candidate", CandidateRouter);
 app.use("/get-candidates", CandidateRouter);
 app.use("/create-stage", StagesRouter);
 app.use("/get-stages", StagesRouter);
+app.use("/create-candidate-in-stage", CreateCandidateinStageRouter);
 /////////////////////////////////////////////
 
 app.listen(Port, () => {
