@@ -54,7 +54,7 @@ export const CreateJob = async (req, res) => {
       });
     }
     const UpdateCompany = "UPDATE company SET Jobs = ? WHERE id = ?";
-    const UpdateCompanyValues = [JSON.stringify(Job[0]), companyID];
+    const UpdateCompanyValues = [JSON.stringify(Job), companyID];
     await DB.promise().query(UpdateCompany, UpdateCompanyValues);
 
     return res.status(200).json({
