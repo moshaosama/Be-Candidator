@@ -12,6 +12,7 @@ export const CreateJob = async (req, res) => {
       Department,
       Contact,
     } = req.body;
+    const { companyID } = req.body;
     if (
       !JobTitle ||
       !Description ||
@@ -45,16 +46,31 @@ export const CreateJob = async (req, res) => {
     const GetJobValues = [result.insertId];
     const [Job] = await DB.promise().query(GetJob, GetJobValues);
 
-    // //Update Company
-    const { companyID } = req.body;
+    //Get Company
+    const GetCompany = `SELECT * FROM company WHERE id = ?`;
+    const GetCompanyValues = [companyID];
+    const [Company] = await DB.promise().query(GetCompany, GetCompanyValues);
+
+    // Company[0]?.Jobs
+
+    const CurrentJobs = JSON.parse(Company[0]?.Jobs || "[]");
+    const NewJobs = {
+      id: Job[0]?.id,
+      ...Job[0],
+    };
+
+    CurrentJobs.push(NewJobs);
+
+    //Update Company
     if (!companyID) {
       return res.status(400).json({
         success: false,
         message: "Company ID is required",
       });
     }
+
     const UpdateCompany = "UPDATE company SET Jobs = ? WHERE id = ?";
-    const UpdateCompanyValues = [JSON.stringify(Job), companyID];
+    const UpdateCompanyValues = [JSON.stringify(CurrentJobs), companyID];
     await DB.promise().query(UpdateCompany, UpdateCompanyValues);
 
     //Create DefaultStage
