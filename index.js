@@ -16,6 +16,7 @@ import GetContactRouter from "./Router/Contact/GetContact.js";
 import CreateJobRouter from "./Router/Jobs/CreateJob.js";
 import GetJobsRouter from "./Router/Jobs/GetJobs.js";
 import CandidateRouter from "./Router/Candidate/CandidateRouter.js";
+import GetJobByIdRouter from "./Router/Jobs/GetJJobById.js";
 dotenv.config({ config: ".env" });
 
 const app = express();
@@ -48,6 +49,7 @@ app.use("/create-contact", CreateContactRouter);
 app.use("/get-contacts", GetContactRouter);
 app.use("/create-job", CreateJobRouter);
 app.use("/get-jobs", GetJobsRouter);
+app.use("/get-job-by-id", GetJobByIdRouter);
 app.use("/create-candidate", CandidateRouter);
 app.use("/get-candidates", CandidateRouter);
 /////////////////////////////////////////////
