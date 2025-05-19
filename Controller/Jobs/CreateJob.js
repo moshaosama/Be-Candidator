@@ -57,6 +57,17 @@ export const CreateJob = async (req, res) => {
     const UpdateCompanyValues = [JSON.stringify(Job), companyID];
     await DB.promise().query(UpdateCompany, UpdateCompanyValues);
 
+    //Create DefaultStage
+    const defaultStages = JSON.stringify([
+      { id: 1, stageTitle: "Pending" },
+      { id: 2, stageTitle: "Interview" },
+      { id: 3, stageTitle: "Hired" },
+      { id: 4, stageTitle: "Rejected" },
+    ]);
+    const UpdateStages = `UPDATE job SET Stages = ? WHERE id = ?`;
+    const UpdateStagesValues = [defaultStages, result.insertId];
+    await DB.promise().query(UpdateStages, UpdateStagesValues);
+
     return res.status(200).json({
       success: true,
       message: "Job Created Successfully",
