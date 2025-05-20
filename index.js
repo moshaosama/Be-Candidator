@@ -57,6 +57,7 @@ app.use("/get-candidates", CandidateRouter);
 app.use("/create-stage", StagesRouter);
 app.use("/get-stages", StagesRouter);
 app.use("/create-candidate-in-stage", CreateCandidateinStageRouter);
+app.use("/get-candidate-by-stage", CandidateRouter);
 /////////////////////////////////////////////
 
 app.listen(Port, () => {
