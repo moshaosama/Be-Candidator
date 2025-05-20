@@ -5,6 +5,6 @@ import { GetCandidateByStage } from "../../Controller/Candidate/GetCandidateBySt
 const CandidateRouter = express.Router();
 
 CandidateRouter.route("/").post(createCandidate).get(getCandidates);
-CandidateRouter.route("/:stageTitle").get(GetCandidateByStage);
+CandidateRouter.route("/:jobId/:stageTitle").get(GetCandidateByStage);
 
 export default CandidateRouter;
