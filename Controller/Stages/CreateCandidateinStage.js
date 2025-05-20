@@ -2,7 +2,7 @@ import DB from "../../ConnectDB/DB.js";
 
 export const CreateCandidateinStage = async (req, res) => {
   try {
-    const { JobID } = req.body;
+    const { JobID, CandidateID } = req.body;
     if (!JobID) {
       return res.status(400).json({ message: "Job ID is required" });
     }
@@ -11,7 +11,6 @@ export const CreateCandidateinStage = async (req, res) => {
 
     const [Job] = await DB.promise().query(GetJobs, Value);
 
-    const { CandidateID } = req.body;
     if (!CandidateID) {
       return res.status(400).json({ message: "Candidate ID is required" });
     }
@@ -44,6 +43,15 @@ export const CreateCandidateinStage = async (req, res) => {
     }
 
     CurrentCandidateinJob.push(Candidate[0]);
+
+    const UodateJobinCandidateQuery =
+      "UPDATE candidates SET jobId=? WHERE id=?";
+    const ValueUpdateJobinCandidate = [JobID, CandidateID];
+
+    await DB.promise().query(
+      UodateJobinCandidateQuery,
+      ValueUpdateJobinCandidate
+    );
 
     const UpdateJob = "UPDATE job SET Candidates = ? WHERE id = ?";
     const ValueUpdateJob = [JSON.stringify(CurrentCandidateinJob), JobID];
