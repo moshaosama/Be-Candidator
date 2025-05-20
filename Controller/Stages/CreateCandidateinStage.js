@@ -31,7 +31,18 @@ export const CreateCandidateinStage = async (req, res) => {
       GetCandidateinJob,
       ValueGetCandidateinJob
     );
-    const CurrentCandidateinJob = JSON.parse(CandidateinJob[0].Candidates);
+
+    let CurrentCandidateinJob = [];
+
+    if (CandidateinJob.length > 0 && CandidateinJob[0].Candidates) {
+      try {
+        CurrentCandidateinJob = JSON.parse(CandidateinJob[0].Candidates) || [];
+      } catch (e) {
+        console.error("Error parsing Candidates JSON:", e);
+        CurrentCandidateinJob = [];
+      }
+    }
+
     CurrentCandidateinJob.push(Candidate[0]);
 
     const UpdateJob = "UPDATE job SET Candidates = ? WHERE id = ?";
@@ -41,6 +52,7 @@ export const CreateCandidateinStage = async (req, res) => {
 
     return res.status(200).json({ message: "Candidate added to job", result });
   } catch (err) {
+    console.error("Error in CreateCandidateinStage:", err);
     return res.status(500).json({ message: "Internal server error", err });
   }
 };
