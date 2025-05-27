@@ -17,8 +17,12 @@ export const SignUp = async (req, res) => {
     const HashPassword = await bcrypt.hash(Password, 12);
 
     const Values = [FirstName, LastName, Email, HashPassword, "Candidate"];
+    const [result] = await DB.promise().query(Query, Values);
 
-    await DB.promise().query(Query, Values);
+    const createCandidateQuery =
+      "INSERT INTO candidates (id,FirstName, LastName, Email, Password) VALUES (?,?,?,?,?)";
+    const Value = [result.insertId, FirstName, LastName, Email, HashPassword];
+    await DB.promise().query(createCandidateQuery, Value);
 
     return res.status(200).json({
       statusbar: "success",
