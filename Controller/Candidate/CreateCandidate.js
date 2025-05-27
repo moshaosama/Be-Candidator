@@ -15,7 +15,7 @@ export const createCandidate = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(Password, 10);
 
-    const Query = `INSERT INTO candidates (FirstName, LastName, Email, Password, LinkedInProfile, Resume) VALUES (?, ?, ?, ?, ?, ?);`;
+    const Query = `INSERT INTO candidates (FirstName, LastName, Email, Password, LinkedInProfile, Resume,job_application) VALUES (?, ?, ?, ?, ?, ?,?);`;
     const Values = [
       FirstName,
       LastName,
@@ -23,6 +23,7 @@ export const createCandidate = async (req, res) => {
       hashedPassword,
       LinkedInProfile,
       Resume,
+      0,
     ];
 
     await DB.promise().query(Query, Values);
