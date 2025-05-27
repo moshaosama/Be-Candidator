@@ -20,8 +20,15 @@ export const SignUp = async (req, res) => {
     const [result] = await DB.promise().query(Query, Values);
 
     const createCandidateQuery =
-      "INSERT INTO candidates (id,FirstName, LastName, Email, Password) VALUES (?,?,?,?,?)";
-    const Value = [result.insertId, FirstName, LastName, Email, HashPassword];
+      "INSERT INTO candidates (id,FirstName, LastName, Email, Password, job_application) VALUES (?,?,?,?,?,?)";
+    const Value = [
+      result.insertId,
+      FirstName,
+      LastName,
+      Email,
+      HashPassword,
+      0,
+    ];
     await DB.promise().query(createCandidateQuery, Value);
 
     return res.status(200).json({
