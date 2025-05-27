@@ -6,10 +6,6 @@ export const CreateCandidateinStage = async (req, res) => {
     if (!JobID) {
       return res.status(400).json({ message: "Job ID is required" });
     }
-    const GetJobs = "SELECT * FROM job WHERE id = ?";
-    const Value = [JobID];
-
-    const [Job] = await DB.promise().query(GetJobs, Value);
 
     if (!CandidateID) {
       return res.status(400).json({ message: "Candidate ID is required" });
