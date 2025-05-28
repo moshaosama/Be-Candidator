@@ -17,7 +17,6 @@ export const CreateCandidateinStage = async (req, res) => {
     const GetCandidate = "SELECT * FROM candidates WHERE id = ?";
     const ValueCandidate = [CandidateID];
     const [Candidate] = await DB.promise().query(GetCandidate, ValueCandidate);
-    // console.log(Candidate[0]?.job_application);
 
     //Update JobApplication
     let job_application = Candidate[0]?.job_application || 0;
@@ -34,6 +33,7 @@ export const CreateCandidateinStage = async (req, res) => {
       GetCandidateinJob,
       ValueGetCandidateinJob
     );
+
     let CurrentCandidateinJob = [];
     if (CandidateinJob.length > 0 && CandidateinJob[0].Candidates) {
       try {
@@ -45,10 +45,36 @@ export const CreateCandidateinStage = async (req, res) => {
     }
     CurrentCandidateinJob.push(Candidate[0]);
 
+    const GetAllJobIdinCandidate = "SELECT jobId FROM candidates WHERE id = ?";
+    const ValueGetAllJobIdinCandidate = ["11"];
+
+    const [JobById] = await DB.promise().query(
+      GetAllJobIdinCandidate,
+      ValueGetAllJobIdinCandidate
+    );
+
     // Update JobID in  Candidate Table
+    let currentJobId = [];
+
+    if (JobById[0]?.jobId === null) {
+      currentJobId = [];
+    } else {
+      try {
+        currentJobId = JSON.parse(JobById[0].jobId);
+      } catch (e) {
+        console.error("Error parsing jobId:", e);
+        currentJobId = [];
+      }
+    }
+
+    currentJobId.push({ jobId: JobID });
+
     const UodateJobinCandidateQuery =
       "UPDATE candidates SET jobId=? WHERE id=?";
-    const ValueUpdateJobinCandidate = [JobID, CandidateID];
+    const ValueUpdateJobinCandidate = [
+      JSON.stringify(currentJobId),
+      CandidateID,
+    ];
     await DB.promise().query(
       UodateJobinCandidateQuery,
       ValueUpdateJobinCandidate
