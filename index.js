@@ -21,6 +21,7 @@ import StagesRouter from "./Router/Stages/CreateStage.js";
 import CreateCandidateinStageRouter from "./Router/Stages/CreateCandidateinStage.js";
 import { LoginRouter, SignUpRouter } from "./Router/User/User.js";
 import SavedJobRouter from "./Router/SavedJobs/SavedJobsRouter.js";
+import EditProfileCandidateRouter from "./Router/EditProfile/EditProfile.js";
 dotenv.config({ config: ".env" });
 
 const app = express();
@@ -65,6 +66,7 @@ app.use("/create-saved-job", SavedJobRouter);
 app.use("/get-saved-jobs", SavedJobRouter);
 app.use("/sign-up", SignUpRouter);
 app.use("/login", LoginRouter);
+app.use("/edit-candidate-profile", EditProfileCandidateRouter);
 /////////////////////////////////////////////
 
 app.listen(Port, () => {
