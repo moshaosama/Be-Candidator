@@ -16,7 +16,6 @@ export const EditDetailsCandidates = async (req, res) => {
       "phoneNumber",
       "Location",
       "About",
-      "Skills",
     ];
     const data = req.body;
     const QueryGetCandidateByid = "SELECT * FROM candidates WHERE id =?";
