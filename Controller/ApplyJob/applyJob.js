@@ -11,8 +11,9 @@ export const ApplyJob = async (req, res) => {
       });
     }
 
-    const Query = "INSERT INTO applyjob (jobId,candidateId) VALUES (?,?)";
-    const Values = [jobId, candidateId];
+    const Query =
+      "INSERT INTO applyjob (jobId,candidateId,isApply) VALUES (?,?,?)";
+    const Values = [jobId, candidateId, "true"];
 
     await DB.promise().query(Query, Values);
 
