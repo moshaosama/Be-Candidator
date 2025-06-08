@@ -59,7 +59,7 @@ export const CreateJob = async (req, res) => {
       ...Job[0],
     };
 
-    CurrentJobs.push(NewJobs);;
+    CurrentJobs.push(NewJobs);
 
     //Update Company
     if (!companyID) {
