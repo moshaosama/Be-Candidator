@@ -79,11 +79,6 @@ export const CreateCandidateinStage = async (req, res) => {
       UodateJobinCandidateQuery,
       ValueUpdateJobinCandidate
     );
-
-    //Update Candidates in Job Table
-    const UpdateJob = "UPDATE job SET Candidates = ? WHERE id = ?";
-    const ValueUpdateJob = [JSON.stringify(CurrentCandidateinJob), JobID];
-    const [result] = await DB.promise().query(UpdateJob, ValueUpdateJob);
     return res.status(200).json({ message: "Candidate added to job", result });
   } catch (err) {
     console.error("Error in CreateCandidateinStage:", err);
