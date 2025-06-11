@@ -27,6 +27,7 @@ import GetSkillByIdRouter from "./Router/EditProfile/GetSkillsByid.js";
 import ApplyJobRouter from "./Router/ApplyJob/applyJob.js";
 import getApplyJobRouter from "./Router/ApplyJob/getApplyJob.js";
 import "./Middleware/ErrorHandling.js";
+import ResumeRouter from "./Router/Resumes/ResumeRouter.js";
 dotenv.config({ config: ".env" });
 
 const app = express();
@@ -77,6 +78,8 @@ app.use("/create-skill", CreateSkillRouter);
 app.use("/get-skills", GetSkillByIdRouter);
 app.use("/apply-job", ApplyJobRouter);
 app.use("/get-apply-job", getApplyJobRouter);
+app.use("/upload-resume", ResumeRouter);
+app.use("/get-resume", ResumeRouter);
 /////////////////////////////////////////////
 
 app.listen(Port, () => {
