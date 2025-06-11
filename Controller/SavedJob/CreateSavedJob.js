@@ -1,9 +1,9 @@
 import DB from "../../ConnectDB/DB.js";
 
-export const CreateSavedJob = async (req, res) => {
+export const CreateSavedJob = async (req, res, next) => {
   try {
-    const { jobId } = req.params;
-    if (!jobId) {
+    const { job_id } = req.params;
+    if (!job_id) {
       return res.status(404).json({
         statusbar: "errro",
         message: "jobId is required",
@@ -11,7 +11,7 @@ export const CreateSavedJob = async (req, res) => {
     }
 
     const Query = "INSERT INTO saved_jobs (job_id) VALUES (?)";
-    const Value = [jobId];
+    const Value = [job_id];
 
     await DB.promise().query(Query, Value);
 
@@ -20,9 +20,6 @@ export const CreateSavedJob = async (req, res) => {
       message: "Created SavedJob successfully!",
     });
   } catch (error) {
-    res.status(500).json({
-      message: "Error deleting recruiter",
-      error: error.message,
-    });
+    next(error);
   }
 };
