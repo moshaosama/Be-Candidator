@@ -1,6 +1,6 @@
 import DB from "../../ConnectDB/DB.js";
 
-export const GetJoinJobs = async (req, res) => {
+export const GetJoinJobs = async (req, res, next) => {
   try {
     const Query =
       "SELECT * FROM job INNER JOIN saved_jobs AS SJ ON job.id = SJ.job_id";
@@ -15,9 +15,6 @@ export const GetJoinJobs = async (req, res) => {
       result,
     });
   } catch (error) {
-    res.status(500).json({
-      message: "Error deleting recruiter",
-      error: error.message,
-    });
+    next(error);
   }
 };

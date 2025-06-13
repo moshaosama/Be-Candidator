@@ -12,7 +12,7 @@ export const getResumes = async (req, res, next) => {
     }
 
     const Query = "SELECT * FROM resumes WHERE candidate_id =?";
-    const Value = [candidate_id];
+    const Value = [candidate_id]; // Candidate_id
 
     const [result] = await DB.promise().query(Query, Value);
 
