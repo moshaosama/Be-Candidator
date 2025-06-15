@@ -41,3 +41,16 @@ export const getApplyJob = async (req, res) => {
     });
   }
 };
+
+export const getAllApplyJob = async (req, res, next) => {
+  try {
+    const Query = "SELECT * FROM applyjob";
+    const [result] = await DB.promise().query(Query);
+    return res.status(200).json({
+      statusbar: "success",
+      result,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
