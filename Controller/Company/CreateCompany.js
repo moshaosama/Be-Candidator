@@ -4,6 +4,9 @@ import bcrypt from "bcryptjs";
 export const CreateCompany = async (req, res) => {
   try {
     const { FirstName, LastName, Email, Password, Language } = req.body;
+    const currentMonth = new Date().toLocaleString("default", {
+      month: "short",
+    });
 
     if (!FirstName || !LastName || !Email || !Password || !Language) {
       return res.status(400).json({
@@ -16,8 +19,8 @@ export const CreateCompany = async (req, res) => {
     const HashPassword = await bcrypt.hash(Password, 12);
 
     // const query = `INSERT INTO Company (Name, Email, Password, Language, Jobs, Tags) VALUES (?, ?, ?, ?, ?, ?);`;
-    const query = `INSERT INTO company (Name, Email, Password, Language) VALUES (?, ?, ?, ?);`;
-    const Values = [Name, Email, HashPassword, Language];
+    const query = `INSERT INTO company (Name, Email, Password, Language,Month) VALUES (?, ?, ?, ?,?);`;
+    const Values = [Name, Email, HashPassword, Language, currentMonth];
 
     await DB.promise().query(query, Values);
 
