@@ -7,6 +7,6 @@ const CandidateRouter = express.Router();
 
 CandidateRouter.route("/").post(createCandidate).get(getCandidates);
 CandidateRouter.route("/:candidateId").get(getCandidateById);
-CandidateRouter.route("/:jobId/:stageTitle").get(GetCandidateByStage);
+CandidateRouter.route("/by-stage/:stageTitle/:jobId").get(GetCandidateByStage);
 
 export default CandidateRouter;
