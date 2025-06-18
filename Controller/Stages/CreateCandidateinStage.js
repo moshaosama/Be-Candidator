@@ -9,11 +9,6 @@ export const CreateCandidateinStage = async (req, res) => {
     if (!CandidateID) {
       return res.status(400).json({ message: "Candidate ID is required" });
     }
-
-    // Update  Stages in Candidate Table
-    const UpdateCandidate = "UPDATE candidates SET Stages = ? WHERE id = ?";
-    const ValueUpdateCandidate = ["Pending", CandidateID];
-    await DB.promise().query(UpdateCandidate, ValueUpdateCandidate);
     const GetCandidate = "SELECT * FROM candidates WHERE id = ?";
     const ValueCandidate = [CandidateID];
     const [Candidate] = await DB.promise().query(GetCandidate, ValueCandidate);
@@ -26,25 +21,7 @@ export const CreateCandidateinStage = async (req, res) => {
     const VALUE = [job_application, CandidateID];
     await DB.promise().query(UpdateJobApplicationinCandidator, VALUE);
 
-    //getCandiddate from Job
-    const GetCandidateinJob = "SELECT Candidates FROM job WHERE id = ?";
-    const ValueGetCandidateinJob = [JobID];
-    const [CandidateinJob] = await DB.promise().query(
-      GetCandidateinJob,
-      ValueGetCandidateinJob
-    );
-
-    let CurrentCandidateinJob = [];
-    if (CandidateinJob.length > 0 && CandidateinJob[0].Candidates) {
-      try {
-        CurrentCandidateinJob = JSON.parse(CandidateinJob[0].Candidates) || [];
-      } catch (e) {
-        console.error("Error parsing Candidates JSON:", e);
-        CurrentCandidateinJob = [];
-      }
-    }
-    CurrentCandidateinJob.push(Candidate[0]);
-
+    
     const GetAllJobIdinCandidate = "SELECT jobId FROM candidates WHERE id = ?";
     const ValueGetAllJobIdinCandidate = ["11"];
 
