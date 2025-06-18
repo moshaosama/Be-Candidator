@@ -28,7 +28,7 @@ export const CreateJob = async (req, res) => {
         message: "All fields are required",
       });
     }
-    const createJob = `INSERT INTO job (JobTitle, Description, Location, Gender, NumNeeded, Commitment , Department , Contact ) VALUES (?, ?, ?, ?, ?, ?, ?, ?);`;
+    const createJob = `INSERT INTO job (JobTitle, Description, Location, Gender, NumNeeded, Commitment , Department , Contact,company_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?);`;
     const createJobValues = [
       JobTitle,
       Description,
@@ -38,40 +38,9 @@ export const CreateJob = async (req, res) => {
       Commitment,
       Department,
       Contact,
+      companyID,
     ];
     const [result] = await DB.promise().query(createJob, createJobValues);
-
-    //Get Job by ID
-    const GetJob = `SELECT * FROM job WHERE id = ?`;
-    const GetJobValues = [result.insertId];
-    const [Job] = await DB.promise().query(GetJob, GetJobValues);
-
-    //Get Company
-    const GetCompany = `SELECT * FROM company WHERE id = ?`;
-    const GetCompanyValues = [companyID];
-    const [Company] = await DB.promise().query(GetCompany, GetCompanyValues);
-
-    // Company[0]?.Jobs
-
-    const CurrentJobs = JSON.parse(Company[0]?.Jobs || "[]");
-    const NewJobs = {
-      id: Job[0]?.id,
-      ...Job[0],
-    };
-
-    CurrentJobs.push(NewJobs);
-
-    //Update Company
-    if (!companyID) {
-      return res.status(400).json({
-        success: false,
-        message: "Company ID is required",
-      });
-    }
-
-    const UpdateCompany = "UPDATE company SET Jobs = ? WHERE id = ?";
-    const UpdateCompanyValues = [JSON.stringify(CurrentJobs), companyID];
-    await DB.promise().query(UpdateCompany, UpdateCompanyValues);
 
     //Create DefaultStage
     const defaultStages = JSON.stringify([
