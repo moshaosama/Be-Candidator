@@ -2,29 +2,29 @@ import DB from "../../ConnectDB/DB.js";
 
 export const GetCandidateByStage = async (req, res) => {
   try {
-    const { jobId, stageTitle } = req.params;
+    const { stageTitle, jobId } = req.params;
 
     if (!stageTitle) {
-      return res.status(400).json({ message: "Stage title is required" });
+      return res.status(400).json({ message: "data is required" });
     }
 
-    const query = "SELECT Candidates FROM job WHERE id = ?";
-    const values = [jobId];
+    const Query = `
+          SELECT *  
+          FROM applyjob 
+          INNER JOIN candidates ON applyjob.candidateId = candidates.id 
+          INNER JOIN job ON applyjob.jobId = job.id 
+          WHERE applyjob.stage = ?
+          AND applyjob.jobId =?
+        `;
 
-    const [result] = await DB.promise().query(query, values);
+    const values = [stageTitle, jobId];
 
-    const candidates = JSON.parse(result[0].Candidates);
-    let candidatesByStage;
+    const [candidatesByStage] = await DB.promise().query(Query, values);
 
-    if (candidates) {
-      candidatesByStage = candidates.filter(
-        (candidate) => candidate.Stages === stageTitle
-      );
-    }
-
-    return res
-      .status(200)
-      .json({ message: "Candidates by stage", result: candidatesByStage });
+    return res.status(200).json({
+      statusbar: "success",
+      result: candidatesByStage,
+    });
   } catch (error) {
     console.error("Error in GetCandidateByStage:", error);
     return res.status(500).json({ message: "Internal server error", error });
