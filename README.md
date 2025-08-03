@@ -24,8 +24,7 @@
 **Backend**  
 - Node.js  
 - Express.js  
-- MongoDB  
-- Mongoose  
+- SQL 
 - JWT for Authentication  
 
 **Other Tools**  
