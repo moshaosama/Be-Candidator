@@ -19,7 +19,7 @@
 
 **Frontend**  
 - Angular  
-- Tailwind CSS / Bootstrap  
+- Tailwind CSS 
 
 **Backend**  
 - Node.js  
